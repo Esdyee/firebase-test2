@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore/lite';
+import { getStorage } from 'firebase/storage';
 
 //get firebaseConfig from .env
 
@@ -22,5 +23,5 @@ const app = initializeApp(firebaseConfig);
 
 // console.log(firebaseConfig);
 export const db = getFirestore(app);
-
+export const storage = getStorage(app);
 
