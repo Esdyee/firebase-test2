@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Content from "./Content/Content";
 import Upload from "./Upload/Upload";
 import { Routes, Route } from 'react-router-dom';
+import Login from "./Login/Login";
 
 function App() {
 	return (
@@ -17,6 +18,9 @@ function App() {
 				} />
 				<Route path={"/upload"} element={
 					<Upload/>
+				} />
+				<Route path={"/login"} element={
+					<Login/>
 				} />
 			</Routes>
 		</div>
