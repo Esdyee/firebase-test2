@@ -37,7 +37,8 @@ function Content() {
 				data.map((item: any, index:number) => {
 					return(
 						<div className={"product"} key={index}>
-							<div className={"thumbnail"} style={{ backgroundImage: `url('https://via.placeholder.com/350')` }}></div>
+							<div className={"thumbnail"}
+							     style={{ backgroundImage: `url(${item.이미지 ? item.이미지 : 'https://via.placeholder.com/350' })` }}></div>
 							<div className={"flex-grow-1 p-4"}>
 								<h5 className={"title"}>
 									{item.제목}
