@@ -1,65 +1,61 @@
 import React, { useEffect } from 'react';
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
-function Login() {
+function Register() {
 
 	let [name, setName] = React.useState<string>("");
 	let [email, setEmail] = React.useState<string>("");
 	let [password, setPassword] = React.useState<string>("");
 
-
-	function submitLogin() {
-		signInWithEmailAndPassword(getAuth(), email, password)
+	function submitRegister() {
+		const auth = getAuth();
+		createUserWithEmailAndPassword(auth, email, password)
 			.then((result) => {
 				console.log(result);
 				console.log(result.user);
-			});
-	}
 
-	function submitLogout() {
-		signOut(getAuth());
+				if (auth.currentUser) {
+					updateProfile(auth.currentUser, {
+						displayName: name,
+					});
+				}
+			});
 	}
 
 	return (
 		<div className={"container mt-3"}>'
-
-			{/*로그인*/}
+			{/*가입하기*/}
 			<div className={"mb-3"}>
 				<input type={"text"} className="form-control" placeholder="name"
-				       id={"name"}
+				       id={"name-new"}
 				       onChange={(event) => {
-						 setName(event.target.value);
+					       setName(event.target.value);
 				       }}
 				/>
 			</div>
 			<div className={"mb-3"}>
 				<input type={"text"} className="form-control" placeholder="email"
-				       id={"email"}
+				       id={"email-new"}
 				       onChange={(event) => {
-						 setEmail(event.target.value);
+					       setEmail(event.target.value);
 				       }}
 				/>
 			</div>
 			<div className={"mb-3"}>
-				<input type={"text"} className="form-control" placeholder="name"
-				       id={"pw"}
+				<input type={"text"} className="form-control" placeholder="password"
+				       id={"pw-new"}
 				       onChange={(event) => {
-						 setPassword(event.target.value);
+					       setPassword(event.target.value);
 				       }}
 				/>
 			</div>
-			<button type={"submit"} className={"btn btn-primary"} id={"login"}
-				onClick={() => {
-					submitLogin();
-				}}
-			>로그인</button>
-			<button type={"submit"} className={"btn btn-primary"} id={"logout"}
+			<button type={"submit"} className={"btn btn-primary"} id={"register"}
 			        onClick={() => {
-				        submitLogout();
+				        submitRegister();
 			        }}
-			>로그아웃</button>
+			>가입하기</button>
 		</div>
 	)
 }
 
-export default Login;
+export default Register;

@@ -7,6 +7,7 @@ import Content from "./Content/Content";
 import Upload from "./Upload/Upload";
 import { Routes, Route } from 'react-router-dom';
 import Login from "./Login/Login";
+import Register from "./Login/Register";
 
 function App() {
 	return (
@@ -18,6 +19,9 @@ function App() {
 				} />
 				<Route path={"/upload"} element={
 					<Upload/>
+				} />
+				<Route path={"/register"} element={
+					<Register/>
 				} />
 				<Route path={"/login"} element={
 					<Login/>
