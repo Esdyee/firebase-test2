@@ -3,6 +3,7 @@ import { db, storage } from "../firebase";
 import { doc, setDoc, getDoc, getDocs, collection } from "firebase/firestore/lite";
 import "./Content.css";
 import firebase from "firebase/compat";
+import { Link } from "react-router-dom";
 
 
 function Content() {
@@ -32,7 +33,7 @@ function Content() {
 
 	return (
 		<div className={"container mt-3"}>
-			<button onClick={test}>test</button>
+			<button onClick={   test}>test</button>
 			{
 				data.map((item: any, index:number) => {
 					return(
@@ -41,7 +42,7 @@ function Content() {
 							     style={{ backgroundImage: `url(${item.이미지 ? item.이미지 : 'https://via.placeholder.com/350' })` }}></div>
 							<div className={"flex-grow-1 p-4"}>
 								<h5 className={"title"}>
-									{item.제목}
+									<Link to={`/detail?id=${item.id}`}>{item.제목}</Link>
 									<p className={"date"}></p>
 									<p className={"price"}>{item.가격}</p>
 									<p className={"float-end"}>★ 0</p>

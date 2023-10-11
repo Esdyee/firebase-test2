@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Navbar, NavDropdown, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 function NavigationBar() {
 	return (
 		<Navbar expand="lg" className="bg-body-tertiary">
@@ -8,7 +9,9 @@ function NavigationBar() {
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="me-auto">
-						<Nav.Link href="#home">Home</Nav.Link>
+						<Nav.Link href={""}>
+							{/*<Link to={"/"}>Home</Link>*/}
+						</Nav.Link>
 						<Nav.Link href="#link">Link</Nav.Link>
 						<NavDropdown title="Dropdown" id="basic-nav-dropdown">
 							<NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
