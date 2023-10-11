@@ -2,6 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore/lite';
 import { getStorage } from 'firebase/storage';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 //get firebaseConfig from .env
 

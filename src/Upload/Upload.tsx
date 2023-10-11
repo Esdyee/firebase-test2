@@ -33,17 +33,18 @@ function Upload() {
 			},
 			// 성공시 동작하는 함수
 			() => {
-				getDownloadURL(uploadStorage.snapshot.ref).then(async (downloadURL) => {
-					console.log("File available at", downloadURL);
-					setDownloadUrl(downloadURL);
+				getDownloadURL(uploadStorage.snapshot.ref).then(async (url) => {
+					setDownloadUrl(url);
+					console.log("File available at", url);
 
 					const docRef = collection(db, "product");
+					console.log("downloadUrl", downloadUrl);
 					const docSnap = await addDoc(docRef, {
 						제목: title,
 						가격: price,
 						내용: content,
 						날짜: new Date(),
-						이미지: downloadUrl
+						이미지: url
 					});
 
 					resetUpload();
@@ -64,7 +65,8 @@ function Upload() {
 			<pre>
 				title: {title} <br/>
 				price: {price} <br/>
-				content: {content}
+				content: {content} <br/>
+				image: {downloadUrl}
 			</pre>
 
 			<input type={"text"} className={"form-control mt-2"} id={"title"}

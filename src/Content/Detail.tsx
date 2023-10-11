@@ -1,31 +1,40 @@
 import React, { useEffect } from 'react';
 import { db, storage } from "../firebase";
-import { doc, setDoc, getDoc, getDocs, collection } from "firebase/firestore/lite";
+import { doc, setDoc, getDoc, getDocs, collection, Timestamp } from "firebase/firestore/lite";
 import './Detail.css';
 import firebase from "firebase/compat";
+// import DocumentData = firebase.firestore.DocumentData;
 
 function Detail() {
 
 	let [data, setData] = React.useState<any>({});
+	let [createdDate, setCreatedDate] = React.useState<string>("");
 
 	// get querystring from url
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 	const id = urlParams.get('id');
 
-	// get data from firebase
-	const getData = async () => {
-		if(id === null) return;
-		const docRef = doc(db, "product", id);
-		const docSnap = await getDoc(docRef);
-		return docSnap;
-	}
+	useEffect(() => {
+		// get data from firebase
+		const getData = async () => {
+			if(id === null) return;
+			const docRef = doc(db, "product", id);
+			const docSnap = await getDoc(docRef);
+			return docSnap;
+		}
 
-	getData().then(result => {
-		if(result === undefined) return;
+		getData().then(result => {
+			if(result === undefined) return;
+			const resData = result.data();
+			if(resData === undefined) return;
+			setData(resData);
+			setCreatedDate(resData.날짜.toDate().toLocaleDateString()); //날짜는 이렇게 변경해줘야함
+		}).catch(error => {
+			console.log(error);
+		});
+	}, [id]);
 
-		setData(result.data());
-	});
 
 	return (
 		<div className={"container mt-3"}>
@@ -37,9 +46,9 @@ function Detail() {
 			<div>
 				<h5>올린사람 : 모름</h5>
 				<hr />
-				<h5 className={"title"}>상품명</h5>
-				<p className={"date"}>2021-09-01</p>
-				<p className={"price"}>가격</p>
+				<h5 className={"title"}>{data.제목}</h5>
+				<p className={"date"}>{createdDate}</p>
+				<p className={"price"}>{data.가격}</p>
 			</div>
 		</div>
 	);
