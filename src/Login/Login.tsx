@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { auth } from '../firebase';
 
 function Login() {
 
@@ -7,6 +8,10 @@ function Login() {
 	let [email, setEmail] = React.useState<string>("");
 	let [password, setPassword] = React.useState<string>("");
 
+	useEffect(() => {
+		console.log("login");
+		console.log(auth);
+	}, []);
 
 	function submitLogin() {
 		signInWithEmailAndPassword(getAuth(), email, password)

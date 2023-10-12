@@ -4,6 +4,7 @@ import { getFirestore } from 'firebase/firestore/lite';
 import { getStorage } from 'firebase/storage';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import { getAuth } from "firebase/auth";
 
 //get firebaseConfig from .env
 
@@ -23,7 +24,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+const fireAuth = getAuth(app);
+
 // console.log(firebaseConfig);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+
+export const auth = fireAuth;
 
