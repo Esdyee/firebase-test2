@@ -21,8 +21,7 @@ function Login() {
 	function submitLogin() {
 		signInWithEmailAndPassword(getAuth(), email, password)
 			.then((result) => {
-				console.log(result);
-				console.log(result.user);
+				localStorage.setItem("user", JSON.stringify(result.user));
 			});
 	}
 

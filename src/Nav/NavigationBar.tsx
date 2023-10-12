@@ -4,9 +4,19 @@ import { Link } from "react-router-dom";
 import { auth } from '../firebase';
 function NavigationBar() {
 
-	let [displayName, setDisplayName] = React.useState<string>("test");
+	let [displayName, setDisplayName] = React.useState<string | null>("test");
 
 	useEffect(() => {
+
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				console.log("user", user);
+				setDisplayName(user.displayName);
+			} else {
+				console.log("user", user);
+				setDisplayName(null);
+			}
+		});
 
 		const userInfo = localStorage.getItem("user");
 		if (userInfo) {
@@ -22,6 +32,11 @@ function NavigationBar() {
 		// });
 
 	});
+
+	const logout = () => {
+		localStorage.removeItem("user"); // localStorage에 저장한 데이터 제거
+		auth.signOut();
+	}
 
 	return (
 		<Navbar expand="lg" className="bg-body-tertiary">
@@ -51,6 +66,7 @@ function NavigationBar() {
 					</Nav>
 				</Navbar.Collapse>
 				<span className={"ms-auto"}>{ displayName }</span>
+				<button className={"ms-2"} onClick={logout}>logout</button>
 			</Container>
 		</Navbar>
 	);

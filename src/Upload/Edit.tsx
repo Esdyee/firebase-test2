@@ -76,6 +76,8 @@ function Edit() {
 			{/*<button onClick={upload}>test</button>*/}
 
 			<pre>
+				user: {localStorage.getItem("user")} <br/>
+				id: {id} <br/>
 				title: {title} <br/>
 				price: {price} <br/>
 				content: {content} <br/>
@@ -103,9 +105,14 @@ function Edit() {
 				       }}
 			/>
 
-			<button className={"btn btn-danger mt-3"} id={"send"}
-			        onClick={writeProductData}>수정
-			</button>
+			{
+				// firebase auth 없으면 button 안보이게
+				!!localStorage.getItem("user") ?
+					<button className={"btn btn-danger mt-3"} id={"send"}
+					        onClick={edit}>수정
+					</button>
+					: null
+			}
 		</div>
 	)
 }
