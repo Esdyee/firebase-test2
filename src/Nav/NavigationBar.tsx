@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Navbar, NavDropdown, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { auth } from '../firebase';
 function NavigationBar() {
+
+	let [displayName, setDisplayName] = React.useState<string>("test");
+
+	useEffect(() => {
+
+		const userInfo = localStorage.getItem("user");
+		if (userInfo) {
+			const user = JSON.parse(userInfo);
+			setDisplayName(user.displayName);
+		}
+
+		// auth.onAuthStateChanged((user) => {
+		// 	if (user?.displayName) {
+		// 		localStorage.setItem("user", JSON.stringify(user));
+		// 		setDisplayName(user.displayName);
+		// 	}
+		// });
+
+	});
+
 	return (
 		<Navbar expand="lg" className="bg-body-tertiary">
 			<Container>
@@ -29,6 +50,7 @@ function NavigationBar() {
 						</NavDropdown>
 					</Nav>
 				</Navbar.Collapse>
+				<span className={"ms-auto"}>{ displayName }</span>
 			</Container>
 		</Navbar>
 	);

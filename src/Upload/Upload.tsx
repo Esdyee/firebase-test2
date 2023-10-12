@@ -13,8 +13,9 @@ function Upload() {
 
 
 	const upload = async () => {
-		// const docRef = doc(db, "product", "상품3");
-		// const docSnap = await setDoc(docRef, { 제목: "변기"});
+
+		// 계정정보 가져오기
+		const userInfo = localStorage.getItem("user");
 
 		// 저장할 경로
 		const fileRef = ref(storage, "image/" + image.name);
@@ -44,7 +45,9 @@ function Upload() {
 						가격: price,
 						내용: content,
 						날짜: new Date(),
-						이미지: url
+						이미지: url,
+						uid: JSON.parse(userInfo as string).uid,
+						이름 : JSON.parse(userInfo as string).displayName
 					});
 
 					resetUpload();

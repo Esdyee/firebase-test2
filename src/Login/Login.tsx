@@ -9,8 +9,13 @@ function Login() {
 	let [password, setPassword] = React.useState<string>("");
 
 	useEffect(() => {
-		console.log("login");
-		console.log(auth);
+
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				console.log("user", user);
+			}
+		});
+
 	}, []);
 
 	function submitLogin() {
@@ -22,6 +27,7 @@ function Login() {
 	}
 
 	function submitLogout() {
+		localStorage.removeItem("user"); // localStorage에 저장한 데이터 제거
 		signOut(getAuth());
 	}
 
@@ -46,7 +52,7 @@ function Login() {
 				/>
 			</div>
 			<div className={"mb-3"}>
-				<input type={"text"} className="form-control" placeholder="name"
+				<input type={"text"} className="form-control" placeholder="password"
 				       id={"pw"}
 				       onChange={(event) => {
 						 setPassword(event.target.value);

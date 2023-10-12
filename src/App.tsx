@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 import Login from "./Login/Login";
 import Register from "./Login/Register";
 import Detail from "./Content/Detail";
+import Edit from "./Upload/Edit";
 
 function App() {
 	return (
@@ -30,6 +31,10 @@ function App() {
 				<Route path={"/detail"} element={
 					<Detail/>
 				} />
+				<Route path={"/edit"} element={
+					<Edit/>
+				}>
+				</Route>
 			</Routes>
 		</div>
 	);

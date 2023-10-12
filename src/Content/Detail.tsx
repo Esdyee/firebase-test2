@@ -3,6 +3,7 @@ import { db, storage } from "../firebase";
 import { doc, setDoc, getDoc, getDocs, collection, Timestamp } from "firebase/firestore/lite";
 import './Detail.css';
 import firebase from "firebase/compat";
+import { Link } from "react-router-dom";
 // import DocumentData = firebase.firestore.DocumentData;
 
 function Detail() {
@@ -35,16 +36,23 @@ function Detail() {
 		});
 	}, [id]);
 
+	function moveEdit() {
+		// react route to edit page
+
+	}
 
 	return (
 		<div className={"container mt-3"}>
 			{/*상세보기*/}
 			상세페이지
+			<button>
+				<Link to={`/edit?id=${id}`}>수정</Link>
+			</button>
 			<div className={"detail-pic my-4"}
-			     style={{ backgroundImage: `url(https://via.placeholder.com/400)` }}
+			     style={{ backgroundImage: `url(${data.이미지})` }}
 			></div>
 			<div>
-				<h5>올린사람 : 모름</h5>
+				<h5>올린사람 : {data.이름}</h5>
 				<hr />
 				<h5 className={"title"}>{data.제목}</h5>
 				<p className={"date"}>{createdDate}</p>
