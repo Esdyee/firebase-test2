@@ -10,10 +10,8 @@ function NavigationBar() {
 
 		auth.onAuthStateChanged((user) => {
 			if (user) {
-				console.log("user", user);
 				setDisplayName(user.displayName);
 			} else {
-				console.log("user", user);
 				setDisplayName(null);
 			}
 		});
@@ -50,6 +48,9 @@ function NavigationBar() {
 						</Nav.Link>
 						<Nav.Link as={Link} to={"/login"}>
 							Login
+						</Nav.Link>
+						<Nav.Link as={Link} to={"/register"}>
+							Register
 						</Nav.Link>
 						<Nav.Link href="#link">Link</Nav.Link>
 						<NavDropdown title="Dropdown" id="basic-nav-dropdown">

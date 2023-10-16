@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { addDoc, collection, doc, setDoc } from "firebase/firestore/lite";
+import { db } from "../firebase";
 
 function Register() {
 
@@ -10,9 +12,19 @@ function Register() {
 	function submitRegister() {
 		const auth = getAuth();
 		createUserWithEmailAndPassword(auth, email, password)
-			.then((result) => {
-				console.log(result);
+			.then(async (result) => {
+				// console.log(result);
 				console.log(result.user);
+
+				const userInfo = {
+					name: name,
+					email: email,
+				}
+
+				console.log(userInfo);
+
+				const docRef = doc(db, "user", result.user.uid);
+				await setDoc(docRef, userInfo, { merge: true });
 
 				if (auth.currentUser) {
 					updateProfile(auth.currentUser, {

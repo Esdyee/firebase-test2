@@ -4,6 +4,7 @@ import { doc, setDoc, getDoc, getDocs, collection, Timestamp } from "firebase/fi
 import './Detail.css';
 import firebase from "firebase/compat";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 // import DocumentData = firebase.firestore.DocumentData;
 
 function Detail() {
@@ -45,9 +46,19 @@ function Detail() {
 		<div className={"container mt-3"}>
 			{/*상세보기*/}
 			상세페이지
-			<button>
-				<Link to={`/edit?id=${id}`}>수정</Link>
-			</button>
+
+			<Link to={`/edit?id=${id}`}>
+				<Button variant="secondary">
+					수정
+				</Button>
+			</Link>
+
+			<Link to={`/edit?id=${id}`}>
+				<Button variant="secondary">
+					채팅
+				</Button>
+			</Link>
+
 			<div className={"detail-pic my-4"}
 			     style={{ backgroundImage: `url(${data.이미지})` }}
 			></div>
