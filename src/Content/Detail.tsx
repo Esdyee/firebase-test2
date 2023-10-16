@@ -5,6 +5,7 @@ import './Detail.css';
 import firebase from "firebase/compat";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { auth } from '../firebase';
 // import DocumentData = firebase.firestore.DocumentData;
 
 function Detail() {
@@ -42,6 +43,18 @@ function Detail() {
 
 	}
 
+	const makeChatRoom = async () => {
+		const uid = auth.currentUser?.uid;
+		const userInfo = {
+			uid: uid,
+			name: auth.currentUser?.displayName
+		}
+
+		if(id === null) return;
+		const docRef = doc(db, "chatroom", id);
+		await setDoc(docRef, userInfo, { merge: true });
+	}
+
 	return (
 		<div className={"container mt-3"}>
 			{/*상세보기*/}
@@ -53,11 +66,11 @@ function Detail() {
 				</Button>
 			</Link>
 
-			<Link to={`/edit?id=${id}`}>
-				<Button variant="secondary">
-					채팅
-				</Button>
-			</Link>
+
+			<Button variant="secondary" onClick={makeChatRoom}>
+				채팅
+			</Button>
+
 
 			<div className={"detail-pic my-4"}
 			     style={{ backgroundImage: `url(${data.이미지})` }}
