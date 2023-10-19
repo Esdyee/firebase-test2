@@ -10,7 +10,9 @@ function Chat() {
 
 	let [chatroomData, setData] = React.useState<any>([]);
 	let [inputMessageData, setInputMessageData] = React.useState<any>("");
+	let [selectedChatroom, setSelectedChatroom] = React.useState<any>("");
 	let [createdDate, setCreatedDate] = React.useState<string>("");
+	let [chatMessage, setChatMessage] = React.useState<any>([]);
 
 	// get querystring from url
 	const queryString = window.location.search;
@@ -52,20 +54,40 @@ function Chat() {
 
 		// 메세지 내용 변수에 담기
 		const message = inputMessageData;
-		const chatroomId: string = "AwpOr4QywWtvbecQIwnq";
 
 		// sub collection message를 firestore에 저장
-		const docRef = collection(db, "chatroom", chatroomId, "messages");
+		const docRef = collection(db, "chatroom", selectedChatroom, "messages");
 		await addDoc(docRef, {
 			message: message,
 		});
 
 	}
 
+	// 클릭시 chatroom 변경
+	function changeChatroom(id: string) {
+		setSelectedChatroom(id);
+		getChatMessage();
+	}
+
+	// chatroom의 대화목록 가져오기
+	const getChatMessage = async () => {
+
+		const docRef = doc(db, "chatroom", selectedChatroom);
+		const docSnap = await getDoc(docRef);
+
+		if (docSnap.exists()) {
+			const data = docSnap.data();
+			setChatMessage(data.messages);
+		} else {
+			// doc.data() will be undefined in this case
+			console.log("No such document!");
+		}
+	}
+
 	return (
 		<div className={"container mt-3"}>
-			채팅페이지
-
+			채팅페이지<br/>
+			{ selectedChatroom }
 			<div className="container p-4 detail">
 				<div className="row">
 					<div className="col-3 p-0">
@@ -73,7 +95,9 @@ function Chat() {
 							{
 								chatroomData.map((data: any) => {
 									return (
-										<li className="list-group-item">
+										<li className="list-group-item" onClick={() => {
+											changeChatroom(data.id)
+										}}>
 											<h6>{data.제목}</h6>
 											<h6 className="text-small">{data.id}</h6>
 										</li>
