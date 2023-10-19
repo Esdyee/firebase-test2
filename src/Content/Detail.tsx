@@ -45,28 +45,22 @@ function Detail() {
 
 	const makeChatRoom = async () => {
 
-		const existChatroom = await checkChatRoom();
-
-		console.log(existChatroom);
-
-		if (!existChatroom) { // 존재하는 채팅방이 없을 경우, 채팅방 만들기
-			const uid = auth.currentUser?.uid;
-			const userInfo = {
-				uid: uid,
-				name: auth.currentUser?.displayName
-			}
-
-			if(id === null) return;
-			// const docRef = doc(db, "chatroom", id);
-			// await setDoc(docRef, userInfo, { merge: true });
-
-			const docRef = collection(db, "chatroom");
-			const docSnap = await addDoc(docRef, {
-				chatUsers: [uid, data.uid],
-				제목: data.제목,
-				날짜: new Date(),
-			});
+		const uid = auth.currentUser?.uid;
+		const userInfo = {
+			uid: uid,
+			name: auth.currentUser?.displayName
 		}
+
+		if(id === null) return;
+		// const docRef = doc(db, "chatroom", id);
+		// await setDoc(docRef, userInfo, { merge: true });
+
+		const docRef = collection(db, "chatroom");
+		const docSnap = await addDoc(docRef, {
+			chatUsers: [uid, data.uid],
+			제목: data.제목,
+			날짜: new Date(),
+		});
 
 	}
 
