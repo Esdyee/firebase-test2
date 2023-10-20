@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore/lite';
+import { getFirestore as noLiteFireStore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -28,6 +29,7 @@ const fireAuth = getAuth(app);
 
 // console.log(firebaseConfig);
 export const db = getFirestore(app);
+export const noLiteDb = noLiteFireStore(app);
 export const storage = getStorage(app);
 
 export const auth = fireAuth;
