@@ -10,6 +10,7 @@ import Login from "./Login/Login";
 import Register from "./Login/Register";
 import Detail from "./Content/Detail";
 import Edit from "./Upload/Edit";
+import Chat from "./Content/Chat";
 
 function App() {
 	return (
@@ -33,6 +34,10 @@ function App() {
 				} />
 				<Route path={"/edit"} element={
 					<Edit/>
+				}>
+				</Route>
+				<Route path={"/chat"} element={
+					<Chat/>
 				}>
 				</Route>
 			</Routes>

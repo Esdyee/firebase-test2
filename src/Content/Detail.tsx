@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { db, storage } from "../firebase";
-import { doc, setDoc, getDoc, getDocs, collection, Timestamp } from "firebase/firestore/lite";
+import { doc, query, where, getDoc, getDocs, collection, Timestamp, addDoc } from "firebase/firestore/lite";
 import './Detail.css';
 import firebase from "firebase/compat";
 import { Link } from "react-router-dom";
@@ -44,6 +44,7 @@ function Detail() {
 	}
 
 	const makeChatRoom = async () => {
+
 		const uid = auth.currentUser?.uid;
 		const userInfo = {
 			uid: uid,
@@ -51,9 +52,52 @@ function Detail() {
 		}
 
 		if(id === null) return;
-		const docRef = doc(db, "chatroom", id);
-		await setDoc(docRef, userInfo, { merge: true });
+		// const docRef = doc(db, "chatroom", id);
+		// await setDoc(docRef, userInfo, { merge: true });
+
+		const docRef = collection(db, "chatroom");
+		const docSnap = await addDoc(docRef, {
+			chatUsers: [uid, data.uid],
+			제목: data.제목,
+			날짜: new Date(),
+		});
+
 	}
+
+	const checkChatRoom = async () => {
+		// check chatroom exist
+		// if exist, move to chatroom
+		// if not, make chatroom
+
+		const myuid = auth.currentUser?.uid;
+		const productuid = data.uid;
+
+		const collectionData = collection(db, "chatroom");
+		const myuidQuery = where("chatUsers", "array-contains", myuid);
+		// const productuidQuery = where("chatUsers", "array-contains", productuid);
+
+		const searchChatQuery = query(collectionData, myuidQuery);
+
+		const querySnapshot = await getDocs(searchChatQuery);
+
+		const matchingDocs = [];
+		querySnapshot.forEach((doc) => {
+			// 내 채팅 목록 불러와서
+			const data = doc.data();
+
+			// 내가 클릭한 상품의 uid가 있는지 확인
+			if (data.chatUsers && data.chatUsers.includes(productuid)) {
+				matchingDocs.push(doc);
+			}
+		});
+
+		if (matchingDocs.length > 0) {
+			return true;
+		} else {
+			return false;
+		}
+
+	};
 
 	return (
 		<div className={"container mt-3"}>
@@ -69,6 +113,10 @@ function Detail() {
 
 			<Button variant="secondary" onClick={makeChatRoom}>
 				채팅
+			</Button>
+
+			<Button variant="secondary" onClick={checkChatRoom}>
+				채팅여부
 			</Button>
 
 
