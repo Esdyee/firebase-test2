@@ -146,7 +146,9 @@ function Chat() {
 								{
 									chatMessage.map((data: any, index: number) => {
 										return (
-											<li key={index}><span className="chat-box">{data.message}</span></li>
+											<li key={index}><span
+												className={`chat-box ${data.isMine ? "mine" : "other"}`}
+											>{data.message}</span></li>
 										)
 									})
 								}
