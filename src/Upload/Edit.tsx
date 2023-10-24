@@ -42,11 +42,11 @@ function Edit() {
 			setData(resData);
 
 			// Data Set
-			setTitle(resData.제목);
-			setPrice(resData.가격);
-			setContent(resData.내용);
+			setTitle(resData.title);
+			setPrice(resData.price);
+			setContent(resData.content);
 
-			setCreatedDate(resData.날짜.toDate().toLocaleDateString()); //날짜는 이렇게 변경해줘야함
+			setCreatedDate(resData.date.toDate().toLocaleDateString()); //날짜는 이렇게 변경해줘야함
 		}).catch(error => {
 			console.log(error);
 		});
@@ -63,10 +63,10 @@ function Edit() {
 	const writeProductData = async () => {
 		if(id === null) return;
 		const docData = {
-			제목: title,
-			가격: price,
-			내용: content,
-			날짜: Timestamp.fromDate(new Date()),
+			title: title,
+			price: price,
+			content: content,
+			date: Timestamp.fromDate(new Date()),
 		};
 		await setDoc(doc(db, "product", id), docData);
 	}

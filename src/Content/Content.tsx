@@ -42,9 +42,9 @@ function Content() {
 							     style={{ backgroundImage: `url(${item.이미지 ? item.이미지 : 'https://via.placeholder.com/350' })` }}></div>
 							<div className={"flex-grow-1 p-4"}>
 								<h5 className={"title"}>
-									<Link to={`/detail?id=${item.id}`}>{item.제목}</Link>
+									<Link to={`/detail?id=${item.id}`}>{item.title}</Link>
 									<p className={"date"}></p>
-									<p className={"price"}>{item.가격}</p>
+									<p className={"price"}>{item.price}</p>
 									<p className={"float-end"}>★ 0</p>
 								</h5>
 							</div>

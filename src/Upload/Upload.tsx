@@ -41,13 +41,13 @@ function Upload() {
 					const docRef = collection(db, "product");
 					console.log("downloadUrl", downloadUrl);
 					const docSnap = await addDoc(docRef, {
-						제목: title,
-						가격: price,
-						내용: content,
-						날짜: new Date(),
-						이미지: url,
+						title: title,
+						price: price,
+						content: content,
+						date: new Date(),
+						image: url,
 						uid: JSON.parse(userInfo as string).uid,
-						이름 : JSON.parse(userInfo as string).displayName
+						name: JSON.parse(userInfo as string).displayName
 					});
 
 					resetUpload();
