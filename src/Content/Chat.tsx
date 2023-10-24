@@ -132,7 +132,7 @@ function Chat() {
 										<li className="list-group-item" onClick={() => {
 											changeChatroom(data.id)
 										}} key={index}>
-											<h6>{data.제목}</h6>
+											<h6>{data.title}</h6>
 											<h6 className="text-small">{data.id}</h6>
 										</li>
 									)

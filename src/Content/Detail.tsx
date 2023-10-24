@@ -32,7 +32,7 @@ function Detail() {
 			const resData = result.data();
 			if(resData === undefined) return;
 			setData(resData);
-			setCreatedDate(resData.날짜.toDate().toLocaleDateString()); //날짜는 이렇게 변경해줘야함
+			setCreatedDate(resData.date.toDate().toLocaleDateString()); //날짜는 이렇게 변경해줘야함
 		}).catch(error => {
 			console.log(error);
 		});
@@ -58,8 +58,8 @@ function Detail() {
 		const docRef = collection(db, "chatroom");
 		const docSnap = await addDoc(docRef, {
 			chatUsers: [uid, data.uid],
-			제목: data.제목,
-			날짜: new Date(),
+			title: data.title,
+			date: new Date(),
 		});
 
 	}
@@ -126,9 +126,9 @@ function Detail() {
 			<div>
 				<h5>올린사람 : {data.이름}</h5>
 				<hr />
-				<h5 className={"title"}>{data.제목}</h5>
+				<h5 className={"title"}>{data.title}</h5>
 				<p className={"date"}>{createdDate}</p>
-				<p className={"price"}>{data.가격}</p>
+				<p className={"price"}>{data.price}</p>
 			</div>
 		</div>
 	);
