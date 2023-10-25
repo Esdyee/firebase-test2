@@ -7,6 +7,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { getAuth } from "firebase/auth";
 
+
 //get firebaseConfig from .env
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -27,10 +28,12 @@ console.log(firebaseConfig);
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+
 const fireAuth = getAuth(app);
 
 // console.log(firebaseConfig);
 export const db = getFirestore(app);
+// connectFirestoreEmulator(db, '127.0.0.1', 8080);
 export const noLiteDb = noLiteFireStore(app);
 export const storage = getStorage(app);
 
