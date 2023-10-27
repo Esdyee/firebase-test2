@@ -52,6 +52,12 @@ function NavigationBar() {
 						<Nav.Link as={Link} to={"/register"}>
 							Register
 						</Nav.Link>
+						<Nav.Link as={Link} to={"/upload"}>
+							Register
+						</Nav.Link>
+						<Nav.Link as={Link} to={"/chat"}>
+							Chat
+						</Nav.Link>
 						<Nav.Link href="#link">Link</Nav.Link>
 						<NavDropdown title="Dropdown" id="basic-nav-dropdown">
 							<NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

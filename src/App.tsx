@@ -36,6 +36,10 @@ function App() {
 					<Edit/>
 				}>
 				</Route>
+				<Route path={"/upload"} element={
+					<Upload/>
+				}>
+				</Route>
 				<Route path={"/chat"} element={
 					<Chat/>
 				}>
