@@ -26,3 +26,7 @@ yarn-error.log*
 functions/node_modules/
 
 functions/lib/
+
+functions/package-lock.json
+
+functions/
